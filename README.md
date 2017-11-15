@@ -67,6 +67,3 @@ And of course, there are many duplicates in there so repeated solves can be cach
 This is the only thing I've allowed myself to google. For simplest start I thought a Scrabble dictionary might be the best place. So I've grabbed this one from jonbcard's github project...
 
 https://raw.githubusercontent.com/jonbcard/scrabble-bot/master/src/dictionary.txt
-
-
-
