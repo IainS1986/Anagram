@@ -15,11 +15,14 @@ namespace AnagramSolver
 
         private static IDictionaryParser Parser { get; set; }
 
+        private static IAnagramSolver Solver { get; set; }
+
         private static AnagramDictionary Anagrams { get; set; }
 
         static void Main(string[] args)
         {
             Parser = new DictionaryParser();
+            Solver = new SingleWordSolver();
 
             Anagrams = Parser.Parse(cFilePath);
 
@@ -36,20 +39,7 @@ namespace AnagramSolver
             Console.WriteLine("Type in a word below and see if it has any anagrams...");
             var input = Console.ReadLine();
 
-            //Rearrange
-            var upper = input.ToUpper();
-            var sorted = upper.Alphabetically();
-
-            //Look for the word in the dictionary
-            List<string> anagrams = new List<string>();
-            if (Anagrams.Values.ContainsKey(sorted))
-            {
-                anagrams.AddRange(Anagrams.Values[sorted]);
-
-                //Remove our word!
-                anagrams.Remove(upper);
-            }
-
+            List<string> anagrams = Solver.Anagrams(input, Anagrams);
             if (anagrams.Count > 0)
             {
                 Console.WriteLine(string.Format("Found {0} anagram{1}!", anagrams.Count, (anagrams.Count > 1) ? "s" : string.Empty));
@@ -58,7 +48,7 @@ namespace AnagramSolver
             }
             else
             {
-                Console.WriteLine(string.Format("No Anagrams were found for {0}", upper));
+                Console.WriteLine(string.Format("No Anagrams were found for {0}", input));
             }
 
             Console.WriteLine();
