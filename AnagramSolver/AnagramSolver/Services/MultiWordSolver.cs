@@ -16,8 +16,15 @@ namespace AnagramSolver.Services
             var sorted = upper.Alphabetically();
 
             //Recursively divide and conquer the string building up
+            return RecursiveAnagram(string.Empty, sorted);
+        }
 
-            throw new NotImplementedException();
+        public List<string> RecursiveAnagram(string prefix, string suffix)
+        {
+            //Get All Anagrams of Prefix and all Anagrams of Suffix.
+            //Return a "string" of all possible combinations
+
+            //Then, foreach char in suffix, call this function on prefix+char , suffix-char
         }
     }
 }
