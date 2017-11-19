@@ -37,6 +37,14 @@ namespace AnagramSolver.Services
                 results.AddRange(RecursiveAnagram(string.Empty, v, dictionary));
             }
 
+            //Sort multi word anagrams into alphabetical order so we can remove duplicates
+            for(int i=0; i<results.Count; i++)
+            {
+                string[] splits = results[i].Split(' ');
+                Array.Sort(splits);
+                results[i] = string.Join(" ", splits);
+            }
+
             results = results.Distinct().ToList();
 
             return results;
@@ -64,14 +72,7 @@ namespace AnagramSolver.Services
                     {
                         //Run recursively on sub string and combine each result with prefix anagram
                         var suffixAnagrams = RecursiveAnagram(string.Empty, suffix, dictionary);
-                        //TODO Replace with LINQ
-                        foreach (var prefixAnagram in prefixAnagrams)
-                        {
-                            foreach(var suffixAnagram in suffixAnagrams)
-                            {
-                                result.Add(string.Format("{0} {1}", prefixAnagram, suffixAnagram));
-                            }
-                        }
+                        result.AddRange(prefixAnagrams.Zip(suffixAnagrams, (p, s) => string.Format("{0} {1}", p, s)));
                     }
                 }
             }
