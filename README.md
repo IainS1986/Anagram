@@ -10,8 +10,8 @@ So my general plan is as follows...
 * Simple console application
 * Will use google for one thing...find a decent English dictionary!
 * Will parse input and simply output anagrams of the word typed in.
-** First step being whole anagrams
-** Second step looking for all sub-words inside the inputted word
+* * First step being whole anagrams
+* * Second step looking for all sub-words inside the inputted word
 
 I plan to achieve this by aiming to give all "anagrams" the same hash key within a dictionary. So Dog and God would have the same hash key so looking up "Dog" in the dictionary would return a list of ["Dog", "God"] and likewise looking up "God" would return the same list.
 
@@ -44,12 +44,12 @@ For now, its inefficient. First it takes the input word and generates EVERY perm
 Then for each permutation, it starts anagram hunting!
 
 * It recursively runs on a string splitting it into two, Prefix and Suffix.
-** To start, Prefix is EMPTY and Suffix is the whole word.
+* * To start, Prefix is EMPTY and Suffix is the whole word.
 
 The Recursive function works as so...
 * It looks for all WHOLE anagrams of Prefix (one word anagrams)
-** Then it calls itself recursively using an Empty string Prefix and the whole Suffix
-** Each result returned by this is combined with each anagram found in Prefix
+* * Then it calls itself recursively using an Empty string Prefix and the whole Suffix
+* * Each result returned by this is combined with each anagram found in Prefix
 * Then it moves 1 char from the front of Suffix to the end of Prefix
 * Then it re-runs recursively on the new longer Prefix and shorter Suffix.
 
