@@ -71,7 +71,12 @@ namespace AnagramSolver.Services
                     else
                     {
                         //Run recursively on sub string and combine each result with prefix anagram
-                        var suffixAnagrams = RecursiveAnagram(string.Empty, suffix, dictionary);
+                        var suffixAnagrams = new List<string>();
+                        if (m_anagrams.ContainsKey(suffix))
+                            suffixAnagrams = m_anagrams[suffix];
+                        else
+                            suffixAnagrams = RecursiveAnagram(string.Empty, suffix, dictionary);
+
                         result.AddRange(prefixAnagrams.Zip(suffixAnagrams, (p, s) => string.Format("{0} {1}", p, s)));
                     }
                 }
@@ -84,7 +89,7 @@ namespace AnagramSolver.Services
                 suffix = suffix.Substring(1);
                 //Recall
                 result.AddRange(RecursiveAnagram(prefix, suffix, dictionary));
-            }            
+            } 
 
             return result;
 
