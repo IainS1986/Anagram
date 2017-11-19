@@ -52,6 +52,10 @@ namespace AnagramSolver.Services
 
         public List<string> RecursiveAnagram(string prefix, string suffix, AnagramDictionary dictionary)
         {
+            string key = string.Format("{0} {1}", prefix, suffix);
+            if (m_anagrams.ContainsKey(key))
+                return m_anagrams[key];
+
             var result = new List<string>();
 
             //If Prefix is anagramable
@@ -95,7 +99,9 @@ namespace AnagramSolver.Services
                 suffix = suffix.Substring(1);
                 //Recall
                 result.AddRange(RecursiveAnagram(prefix, suffix, dictionary));
-            } 
+            }
+
+            m_anagrams.Add(key, result);
 
             return result;
 
