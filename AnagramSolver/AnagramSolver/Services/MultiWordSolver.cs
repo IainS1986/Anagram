@@ -32,20 +32,10 @@ namespace AnagramSolver.Services
             //Then, for each string, take an ever increasing PREFIX, looking for anagrams, then repeat on the remaining SUFFIX...
             //Build a running cache as we *will* be repeating the same lookups multiple times
             var permutations = upper.Permutations();
-            foreach (var v in permutations)
-            {
-                results.AddRange(RecursiveAnagram(string.Empty, v, dictionary));
-            }
+            results.AddRange(permutations.SelectMany(x => RecursiveAnagram(string.Empty, x, dictionary)));
 
             //Sort multi word anagrams into alphabetical order so we can remove duplicates
-            for(int i=0; i<results.Count; i++)
-            {
-                string[] splits = results[i].Split(' ');
-                Array.Sort(splits);
-                results[i] = string.Join(" ", splits);
-            }
-
-            results = results.Distinct().ToList();
+            results = results.Select(x => x.Split(' ').OrderBy(y => y)).Select(x => string.Join(" ", x)).Distinct().ToList();
 
             return results;
         }
