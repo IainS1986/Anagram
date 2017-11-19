@@ -18,7 +18,7 @@ I plan to achieve this by aiming to give all "anagrams" the same hash key within
 So at its core, I will parse the English strings into a dictionary where Keys are hash values and Values are lists of words with that hash.
 
 
-# Hashing
+# Hashing and Single Word Anagram Lookup
 
 For my first step, I'm simply going to take the word and arrange all the letter alphabetically, then take the hash value of that string.
 
@@ -26,41 +26,37 @@ So, "God" and "Dog" both arranged alphabetically....are "dgo" (I'll lower case e
 
 Any combination of these three letters typed into by the user will always resolve to the same key as arranged alphabetically they will always be "dgo".
 
-
 Thats the plan anyway.
 
-# Recursion
 
-My first aim is to just get simple whole word anagram solving. This I think should be somewhat trivial using the above approach to hashing.
+# Multiword Anagram Hunting
 
-The tricky part will come with looking for all subwords. So if the user typed in Good -> "Dog" and "God" would be returned (well, only if "o" was a word, which it wouldn't be).
+The above hashing worked great for just doing simple, whole word anagrams. But ideally it would be great to find all words inside a given input. So typing "goddog" would find "GOD DOG" as a possible sollution.
 
-So I could have 2 further features, one to return ALL words found inside the word (regardless of leftover unused words), and one to find lists of whole words that use ALL letters.
+The rules being, ALL letters must be used in the sequence of words found, obviously with no letters being used more than once.
 
-To do this, I'm envisaging having some sort of recursive function that takes a word, looks for anagrams of that word alone, then splits the word 1 character at a time and runs recursively on the two parts...
+I do have a rudimentary version working using recursion, however with 10 letters or more it gets far too slow to be useable.
 
-So, if the input was "Good" it would run,
+So how does it work?
 
-"Good";
-"G","ood";
-"Go", "od";
-"Goo", "d";
-"G", "o", "od";
-"G", "o", "o", "d";
-"Go", "o", "d"
+For now, its inefficient. First it takes the input word and generates EVERY permutation of that string. (Yes. Its inefficient!)
 
-Although...typing that out I realise I've done that wrong, it would of course be in alphabetical order first!
+Then for each permutation, it starts anagram hunting!
 
-"dgoo";
-"d","goo";
-"dg","oo";
-"dgo";"o";
-"d","g","oo";
-"d","g","o","o";
-"dg","o","o";
+* It recursively runs on a string splitting it into two, Prefix and Suffix.
+** To start, Prefix is EMPTY and Suffix is the whole word.
 
-And of course, there are many duplicates in there so repeated solves can be cached and returned much faster.
+The Recursive function works as so...
+* It looks for all WHOLE anagrams of Prefix (one word anagrams)
+** Then it calls itself recursively using an Empty string Prefix and the whole Suffix
+** Each result returned by this is combined with each anagram found in Prefix
+* Then it moves 1 char from the front of Suffix to the end of Prefix
+* Then it re-runs recursively on the new longer Prefix and shorter Suffix.
 
+
+This is all maybe over thought...so in a future date I might come back to this to rethink my approach and hopefully speed this up considerably.
+
+I've done minor optimisations to cache lookups so that I never "de-anagram" the same string twice.
 
 # Dictionary
 
