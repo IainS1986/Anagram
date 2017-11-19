@@ -15,5 +15,27 @@ namespace AnagramSolver.Utility
             Array.Sort(chars);
             return string.Concat(chars);
         }
+
+        public static List<string> Permutations(this string str)
+        {
+            return Permutation(string.Empty, str);
+        }
+
+        private static List<string> Permutation(string prefix, string suffix)
+        {
+            var results = new List<string>();
+            if(suffix.Length == 0)
+            {
+                results.Add(prefix);
+            }
+            else
+            {
+                for(int i=0; i<suffix.Length; i++)
+                {
+                    results.AddRange(Permutation(prefix + suffix[i], suffix.Substring(0, i) + suffix.Substring(i + 1)));
+                }
+            }
+            return results;
+        }
     }
 }

@@ -22,8 +22,8 @@ namespace AnagramSolver
         static void Main(string[] args)
         {
             Parser = new DictionaryParser();
-            Solver = new SingleWordSolver();
-            //Solver = new MultiWordSolver();
+            //Solver = new SingleWordSolver();
+            Solver = new MultiWordSolver();
 
             Anagrams = Parser.Parse(cFilePath);
 
