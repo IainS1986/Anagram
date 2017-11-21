@@ -46,6 +46,8 @@
     <Compile Include="Models\AnagramDictionary.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\TreeMultiWordSolver.cs" />
+    <Compile Include="Services\TreeParser.cs" />
     <Compile Include="Services\MultiWordSolver.cs" />
     <Compile Include="Services\SingleWordSolver.cs" />
     <Compile Include="Services\DictionaryParser.cs" />

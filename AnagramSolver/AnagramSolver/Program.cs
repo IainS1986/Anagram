@@ -23,7 +23,8 @@ namespace AnagramSolver
         {
             Parser = new DictionaryParser();
             //Solver = new SingleWordSolver();
-            Solver = new MultiWordSolver();
+            //Solver = new MultiWordSolver();
+            Solver = new TreeMultiWordSolver(cFilePath);
 
             Anagrams = Parser.Parse(cFilePath);
 
