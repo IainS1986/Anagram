@@ -37,26 +37,7 @@ namespace AnagramSolver.Services
             return results;
         }
 
-        public List<string> StartScan(string chars)
-        {
-            List<string> results = new List<string>();
-
-            Dictionary<char, bool> scanned = new Dictionary<char, bool>();
-            for (int i = 0; i < chars.Length; i++)
-            {
-                char c = chars[i];
-                if (scanned.ContainsKey(c))
-                    continue;
-
-                scanned.Add(c, true);
-                var root = Tree.Root(c);
-                results.AddRange(ScanTree(root, chars.Remove(i, 1)));
-            }
-
-            return results;
-        }
-
-        public List<string> ScanTree(TreeNode node, string chars)
+        private List<string> ScanTree(TreeNode node, string chars)
         {
             List<string> results = new List<string>();
             if(node.IsWord)
@@ -79,22 +60,33 @@ namespace AnagramSolver.Services
 
             if (chars.Length > 0)
             {
-                Dictionary<char, bool> scanned = new Dictionary<char, bool>();
-                //For each child in node that is in chars, recurse
-                for (int i=0; i<chars.Length; i++)
-                {
-                    char c = chars[i];
+                results.AddRange(StartScan(chars, node));
+            }
 
-                    if (scanned.ContainsKey(c))
-                        continue;
+            return results;
+        }
 
-                    scanned.Add(c, true);
-                    var child = node.GetChild(c);
-                    if(child!= null)
-                    {
-                        results.AddRange(ScanTree(child, chars.Remove(i, 1)));
-                    }
-                }
+        private List<string> StartScan(string chars, TreeNode node = null)
+        {
+            List<string> results = new List<string>();
+
+            Dictionary<char, bool> scanned = new Dictionary<char, bool>();
+            for (int i = 0; i < chars.Length; i++)
+            {
+                char c = chars[i];
+                if (scanned.ContainsKey(c))
+                    continue;
+
+                scanned.Add(c, true);
+
+                TreeNode root = null;
+                if (node == null)
+                    root = Tree.Root(c);
+                else
+                    root = node.GetChild(c);
+
+                if(root!= null)
+                    results.AddRange(ScanTree(root, chars.Remove(i, 1)));
             }
 
             return results;
