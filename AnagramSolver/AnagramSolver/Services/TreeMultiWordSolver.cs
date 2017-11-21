@@ -15,6 +15,10 @@ namespace AnagramSolver.Services
         {
             Tree = new TreeParser();
             Tree.Parse(filePath);
+
+            //Mark "a" and "i" as words
+            Tree.Root('I').IsWord = true;
+            Tree.Root('A').IsWord = true;
         }
 
         public List<string> Anagrams(string word, AnagramDictionary dictionary)
