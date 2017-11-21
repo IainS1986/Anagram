@@ -31,14 +31,15 @@ namespace AnagramSolver.Services
             for (int i=0; i<upper.Length; i++)
             {
                 var root = Tree.Root(upper[i]);
-                ScanTree(root, upper.Remove(i, 1), results);
+                results.AddRange(ScanTree(root, upper.Remove(i, 1)));
             }
 
             return results.Distinct().ToList();
         }
 
-        public void ScanTree(TreeNode node, string chars, List<string> results)
+        public List<string> ScanTree(TreeNode node, string chars)
         {
+            List<string> results = new List<string>();
             if (node.IsWord && string.IsNullOrEmpty(chars))
             {
                 string word = node.Word();
@@ -52,10 +53,12 @@ namespace AnagramSolver.Services
                     var child = node.GetChild(chars[i]);
                     if(child!= null)
                     {
-                        ScanTree(child, chars.Remove(i, 1), results);
+                        results.AddRange(ScanTree(child, chars.Remove(i, 1)));
                     }
                 }
             }
+
+            return results;
         }
     }
 }
