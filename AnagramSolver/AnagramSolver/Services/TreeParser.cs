@@ -74,11 +74,12 @@ namespace AnagramSolver.Services
 
     class TreeNode
     {
-        public TreeNode Parent { get; set; }
+        public TreeNode Parent { get; private set; }
         public List<TreeNode> Children { get; set; }
-        public char Char { get; set; }
+        public char Char { get; private set; }
         
         public bool IsWord { get; set; }
+        public string Word { get; private set; }
 
         public TreeNode(char c) : this(c, null)
         {
@@ -90,23 +91,7 @@ namespace AnagramSolver.Services
             //Setup children for potential leafs
             Children = new List<TreeNode>();
             Parent = parent;
-        }
-
-        public string Word()
-        {
-            if (!IsWord)
-                return string.Empty;
-
-            string word = string.Empty;
-            TreeNode node = this;
-
-            while (node != null)
-            {
-                word = string.Format("{1}{0}",word, node.Char);
-                node = node.Parent;
-            }
-
-            return word;
+            Word = string.Format("{0}{1}", Parent?.Word, Char);
         }
 
         public TreeNode GetOrAddChild(char c)

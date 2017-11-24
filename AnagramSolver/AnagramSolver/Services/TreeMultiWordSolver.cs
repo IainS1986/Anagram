@@ -37,12 +37,12 @@ namespace AnagramSolver.Services
             return results;
         }
 
-        private List<string> ScanTree(TreeNode node, string chars)
+        private List<string> ProcessNode(TreeNode node, string chars)
         {
             List<string> results = new List<string>();
             if(node.IsWord)
             {
-                string word = node.Word();
+                string word = node.Word;
                 if(string.IsNullOrEmpty(chars))
                 {
                     results.Add(word);
@@ -86,7 +86,7 @@ namespace AnagramSolver.Services
                     root = node.GetChild(c);
 
                 if(root!= null)
-                    results.AddRange(ScanTree(root, chars.Remove(i, 1)));
+                    results.AddRange(ProcessNode(root, chars.Remove(i, 1)));
             }
 
             return results;
