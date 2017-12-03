@@ -68,4 +68,4 @@ https://raw.githubusercontent.com/jonbcard/scrabble-bot/master/src/dictionary.tx
 
 Here's just a brief demo of the anagram solver running...
 
-[[https://github.com/IainS1986/Anagram/blob/master/GIFs/Anagram.gif|alt=anagrams]]
+![Testing Anagrams](https://github.com/IainS1986/Anagram/blob/master/GIFs/Anagram.gif)
