@@ -63,3 +63,9 @@ I've done minor optimisations to cache lookups so that I never "de-anagram" the 
 This is the only thing I've allowed myself to google. For simplest start I thought a Scrabble dictionary might be the best place. So I've grabbed this one from jonbcard's github project...
 
 https://raw.githubusercontent.com/jonbcard/scrabble-bot/master/src/dictionary.txt
+
+# Demo
+
+Here's just a brief demo of the anagram solver running...
+
+![Testing Anagrams](https://raw.githubusercontent.com/IainS1986/Anagram/blob/master/GIFs/Anagram.gif)
